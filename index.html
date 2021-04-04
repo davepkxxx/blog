@@ -98,30 +98,13 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>Amiibo 是由日本游戏厂商任天堂自家所发行的 NFC 功能的玩偶，主要用在任天堂 Switch 游戏机上，可以在游戏上传或接收所储存的游戏数据。以前模拟 Amiibo 需要一部 Android 手机、TagMo 程序和若干 NTAG 215 卡。而现在只需要一台有蓝牙模块的 Linux 主机就可以实现。</p>
-<h2 id="模拟任天堂-Switch-Pro-控制器"><a href="#模拟任天堂-Switch-Pro-控制器" class="headerlink" title="模拟任天堂 Switch Pro 控制器"></a>模拟任天堂 Switch Pro 控制器</h2><p>Python 库 <a target="_blank" rel="noopener" href="https://github.com/Poohl/joycontrol">Poohl/joycontrol</a> 可以模拟Pro控制器（它 fork 自 <a target="_blank" rel="noopener" href="https://github.com/mart1nro/joycontrol">mart1nro/joycontrol</a>，但原库现在移除了 NFC 功能，无法模拟 Amiibo）。该库只能在 Linux 上运行，MacOS 经过我的测试无法识别蓝牙模块。开发者测试过 Ubuntu 19.10, and with Raspberry Pi 3B+ and 4B Raspbian GNU/Linux 10 (buster)。</p>
-<p>使用该库需要先安装 Python3 和 Git，然后根据不同的发行版安装依赖。</p>
-<p>Ubuntu 需要安装 dbus-python 和 libhidapi-hidraw0</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install python3-dbus libhidapi-hidraw0</span><br></pre></td></tr></table></figure>
-<p>Arch 需要安装 hidapi 和 bluez-utils-compat</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yay -S hidapi bluez-utils-compat</span><br></pre></td></tr></table></figure>
-
-<p>然后克隆该库并安装 Python 依赖。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/Poohl/joycontrol.git</span><br><span class="line">$ sudo pip3 install .</span><br></pre></td></tr></table></figure>
-<p>成功后就可以运行脚本</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python3 run_controller_cli.py PRO_CONTROLLER</span><br></pre></td></tr></table></figure>
-<p>这条命令会模拟 Pro 控制器并等待 Switch 游戏机的连接，这时候可以在 Switch 游戏机上的手柄设置里选择“更改握法/顺序”选项让模拟程序和 Switch 游戏机配对。</p>
-<p>配对成功后按下 Enter 键进入命令行模式。在命令行模式中输入 help 可以查询支持哪些命令。</p>
-<p>注：如果你的程序已经连接过 Switch，可以使用 -r 参数重新连接</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python3 run_controller_cli.py -r &lt;Switch Bluetooth Mac address&gt; PRO_CONTROLLER</span><br></pre></td></tr></table></figure>
-<p>蓝牙地址可以通过 <code>bluetoothctl devices</code> 命令查询到</p>
-<h2 id="虚拟-Amiibo"><a href="#虚拟-Amiibo" class="headerlink" title="虚拟 Amiibo"></a>虚拟 Amiibo</h2><p>虚拟 Amiibo 需要它的 bin 文件，我在 Github 上找到一个库 <a target="_blank" rel="noopener" href="https://github.com/miffycs/Animal-Crossing-Amiibo">miffycs/Animal-Crossing-Amiibo</a> 里有大量动物森友会的 Amiibo 文件。我们首先把该库克隆下来：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/miffycs/Animal-Crossing-Amiibo</span><br></pre></td></tr></table></figure>
-<p>然后就可以在 joycontrol 的命令行里输入 <code>nfc &lt;amiino file path&gt;</code> 加载 Amiibo 了。使用之后可以在 joycontrol 命令行里输入 <code>nfc remove</code> 移除该 Amiibo。</p>
-
+        <p class="article-more-link">
+          <a href="/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/#more">阅读更多</a>
+        </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.gitee.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="ckn356365000f88ui5ah1bpw6" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.gitee.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="ckn38m4zl0001gwuiapgna338" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
       
       
       
@@ -162,30 +145,13 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>Hexo 是一个快速、简洁且高效的博客框架，利用 Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。强大的 API 能与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babel，PostCSS，Less/Sass）轻易集成。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装 Hexo 相当简单，只需要先安装 Node.js 和 Git，然后运行如下命令：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
-<h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>文件 _config.yml 里是网站的 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="new"><a href="#new" class="headerlink" title="new"></a>new</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new &lt;title&gt;</span><br></pre></td></tr></table></figure>
-<p>以上命令会创建一个 source/about/&lt;title&gt;.md 文件，如果标题包含空格的话，请使用引号括起来。</p>
-<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>启动服务器。默认情况下，访问网址为： <a target="_blank" rel="noopener" href="http://localhost:4000/%E3%80%82">http://localhost:4000/。</a></p>
-<h3 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>部署网站。该命令可以简写为：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>Hexo 提供了快速方便的一键部署功能，只需一条命令就能将网站部署到服务器上。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<p>在开始之前，您必须先安装 hexo-deployer-git</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>然后修改 _config.yml 配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span></span><br><span class="line">  <span class="attr">branch:</span> [<span class="string">branch</span>]</span><br></pre></td></tr></table></figure>
-<p>这样就可以执行如下命令生成站点文件并推送至远程库。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo deploy</span><br></pre></td></tr></table></figure>
+        <p class="article-more-link">
+          <a href="/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more">阅读更多</a>
+        </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.gitee.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="ckn35635u000088ui564lg6j1" data-title="使用 Hexo 在 Github/Gitee 搭建博客" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.gitee.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="ckn38m4zi0000gwui80uzgpc2" data-title="使用 Hexo 在 Github/Gitee 搭建博客" class="article-share-link">分享</a>
       
       
       
