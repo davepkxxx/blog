@@ -128,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.github.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="cknakznw20004qkui7jzlace2" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.github.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="cknb0sfc10004u8ui1fzs3ofk" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
       
       
         <a href="/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/#comments" class="article-comment-link">
@@ -169,6 +169,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/object-hash@2.1.1/dist/object_hash.min.js"></script>
 <div id="gitalk-container"></div>
 <script type="text/javascript">
   var gitalk = new Gitalk({
@@ -177,7 +178,7 @@
     repo: 'blog',
     owner: 'davepkxxx',
     admin: ['davepkxxx'],
-    id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: objectHash.MD5(location.pathname),      // Ensure uniqueness and length less than 50
     distractionFreeMode: false  // Facebook-like distraction free mode
   })
 
