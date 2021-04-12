@@ -9,7 +9,7 @@
   <meta name="description" content="Amiibo 是由日本游戏厂商任天堂自家所发行的 NFC 功能的玩偶，主要用在任天堂 Switch 游戏机上，可以在游戏上传或接收所储存的游戏数据。以前模拟 Amiibo 需要一部 Android 手机、TagMo 程序和若干 NTAG 215 卡。而现在只需要一台有蓝牙模块的 Linux 主机就可以实现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模拟 Amiibo，无需 NTAG 215 卡">
-<meta property="og:url" content="https://davepkxxx.gitee.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/index.html">
+<meta property="og:url" content="https://davepkxxx.github.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/index.html">
 <meta property="og:site_name" content="戴威的博客">
 <meta property="og:description" content="Amiibo 是由日本游戏厂商任天堂自家所发行的 NFC 功能的玩偶，主要用在任天堂 Switch 游戏机上，可以在游戏上传或接收所储存的游戏数据。以前模拟 Amiibo 需要一部 Android 手机、TagMo 程序和若干 NTAG 215 卡。而现在只需要一台有蓝牙模块的 Linux 主机就可以实现。">
 <meta property="og:locale" content="zh_CN">
@@ -67,7 +67,7 @@
           
         </nav>
         <div id="search-form-wrap">
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://davepkxxx.gitee.io/blog"></form>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://davepkxxx.github.io/blog"></form>
         </div>
       </div>
     </div>
@@ -124,8 +124,13 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.gitee.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="ckndw3nli0004zoui6ochexd4" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.github.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="ckndwff8f0004mcui7zup41u8" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
       
+      
+        <a href="#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="" itemprop="commentCount"></span>
+          留言
+        </a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/amiibo/" rel="tag">amiibo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/joycontrol/" rel="tag">joycontrol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/nintendo-switch/" rel="tag">nintendo switch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E4%BB%BB%E5%A4%A9%E5%A0%82-switch/" rel="tag">任天堂 switch</a></li></ul>
@@ -157,6 +162,24 @@
 </article>
 
 
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/object-hash@2.1.1/dist/object_hash.min.js"></script>
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'e6afa266ad2001f28396',
+    clientSecret: '0bb4aa28ca0fa007997c7bd1dd69c679cd6aef81',
+    repo: 'blog',
+    owner: 'davepkxxx',
+    admin: ['davepkxxx'],
+    id: objectHash.MD5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+</script>
 
 </section>
         </div>
