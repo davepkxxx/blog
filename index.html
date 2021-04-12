@@ -69,6 +69,82 @@
         <div class="outer">
           <section id="main">
   
+    <article id="post-用vue3的特性custom-renderer制作扫雷游戏" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-meta">
+      <a href="2021/04/12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" class="article-date">
+  <time class="dt-published" datetime="2021-04-11T21:42:17.000Z" itemprop="datePublished">2021-04-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a>
+  </div>
+
+    </div>
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="2021/04/12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/">利用 Vue3 的特性 Custom Renderer 制作扫雷游戏</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>虽然在大多数网络应用中，我们可能都会渲染到DOM。但是现在通过 <a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/">Vue3</a> 的 Custom Renderer 特性，我们可以自己制作渲染器把 Vue 组件渲染到其它平台。</p>
+<h1 id="vue-runtime-core"><a href="#vue-runtime-core" class="headerlink" title="@vue/runtime-core"></a>@vue/runtime-core</h1><p>Vue3 本身是高度模块化的，它提供了程序包 <a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/tree/master/packages/runtime-core">@vue/runtime-core</a> 来帮助我们构建自己的 Vue 的渲染器。<a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/tree/master/packages/runtime-dom">@vue/runtime-dom</a> 则向我们展示了如何实现一个 DOM 渲染器。</p>
+<p>在下面的代码中，简单列举了实现一个自定义渲染器所需的函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRenderer &#125; <span class="keyword">from</span> <span class="string">&#x27;@vue/runtime-core&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; render, createApp &#125; = createRenderer(&#123;</span><br><span class="line">  patchProp,</span><br><span class="line">  insert,</span><br><span class="line">  remove,</span><br><span class="line">  createElement,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// `render` is the low-level API</span></span><br><span class="line"><span class="comment">// `createApp` returns an app instance with configurable context shared</span></span><br><span class="line"><span class="comment">// by the entire app tree.</span></span><br><span class="line"><span class="keyword">export</span> &#123; render, createApp &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">&#x27;@vue/runtime-core&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="createRenderer"><a href="#createRenderer" class="headerlink" title="createRenderer"></a>createRenderer</h2><p><a target="_blank" rel="noopener" href="https://vue3js.cn/docs/zh/api/global-api.html#createrenderer">createRenderer</a> 就是用来创建自定义渲染器的函数，在它的返回值中：</p>
+<ul>
+<li>render 函数只是一个低级别的 API，我们一般不会手动使用它。</li>
+<li><a target="_blank" rel="noopener" href="https://vue3js.cn/docs/zh/api/global-api.html#createapp">createApp</a> 函数则是我们用来创建整个应用的工具，运行它会返回一个提供应用上下文的应用实例，应用实例挂载的整个组件树共享同一个上下文。你可以在 createApp 之后链式调用其它方法，这些方法可以在 <a target="_blank" rel="noopener" href="https://vue3js.cn/docs/zh/api/application-api.html">应用 API</a> 中找到。</li>
+</ul>
+<p>createRenderer 函数的接受一个对象作为参数，它可以定义很多方法构建整个渲染器，在 <a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/blob/master/packages/runtime-dom/src/nodeOps.ts">runtime-dom/src/nodeOps.ts</a> 中有官方的实现可以作为参考。下面会介绍其中常用的几个方法：</p>
+<h3 id="patchProp"><a href="#patchProp" class="headerlink" title="patchProp"></a>patchProp</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patchProp</span> (<span class="params">el, key, prevValue, nextValue</span>)</span></span><br></pre></td></tr></table></figure>
+<p>patchProp 在组件属性被修改时调用，主要让你针对不同属性，给 el 进行不同的操作。更多细节可以参考 <a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/blob/master/packages/runtime-dom/src/patchProp.ts">runtime-dom/src/patchProp.ts</a> 的实现。</p>
+<h3 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insert</span> (<span class="params">child, parent, anchor</span>)</span></span><br></pre></td></tr></table></figure>
+<p>用于给参数 parent 插入子组件 child。</p>
+<h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">remove</span> (<span class="params">child</span>)</span></span><br></pre></td></tr></table></figure>
+<p>移除组件 child，值得注意的是参数里没有提供它的父组件。</p>
+<h3 id="createElement"><a href="#createElement" class="headerlink" title="createElement"></a>createElement</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span> (<span class="params">tag, isSVG, is, props</span>)</span></span><br></pre></td></tr></table></figure>
+<p>创建组件映射的元素，在 runtime-dom 中就是返回的 HTMLElement 实例。</p>
+<h1 id="PixiJS"><a href="#PixiJS" class="headerlink" title="PixiJS"></a>PixiJS</h1><p>在去年看到 Vue3 的新特性 Custom Renderer 的时候，我就为它编写了一个程序，结合 PixiJS 实现一个运行在浏览器 Canvas 中的扫雷游戏。</p>
+<p><a target="_blank" rel="noopener" href="https://www.pixijs.com/">PixiJS</a> 是一个 HTML5 的引擎，使用 2D WebGL 渲染器。我们可以用 JavaScript 或者其他 HTML5 技术来显示媒体，创建动画或管理交互式图像，从而制作一个游戏或应用。</p>
+<p>它拥有语义化的，简洁的 API 接口并且加入了一些非常有用的特性。比如支持纹理贴图集和为 sprite（交互式图像）提供了一个简单的动画系统。它也提供了一个完备的场景图，你可以在 sprite 图层里面创建另一个 sprite，当然也可以让 sprite 响应你的鼠标或触摸事件。</p>
+<p>Pixi 的 API 事实上比起久经沙场又老旧的 Macromedia/Adobe Flash API 要精致，其他的同类渲染框架（比如 CreateJS、Starling、Sparrow 和 Apple’s SpriteKit）也在使用类似的API。Pixi API 的优势在于它是通用的，而它不只是一个游戏引擎。这是一个优势，甚至用它可以写成你自己的游戏引擎。</p>
+<h1 id="扫雷游戏代码"><a href="#扫雷游戏代码" class="headerlink" title="扫雷游戏代码"></a>扫雷游戏代码</h1><p>由于 Windows 10 系统没有自带的扫雷游戏，所以我选用了 <a target="_blank" rel="noopener" href="https://minesweepergame.com/download/arbiter.php">Minesweeper Arbiter</a> 作为参考，它是国际扫雷网承认的扫雷软件之一。我的代码放在我的 Github 仓库 <a href="%5Bvue3-pixi-minesweeper%5D(https://github.com/davepkxxx/vue3-pixi-minesweeper)">davepkxxx/vue3-pixi-minesweeper</a> 中，可以克隆下来运行它看看效果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/davepkxxx/vue3-pixi-minesweeper</span><br><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://davepkxxx.github.io/blog/2021/04/12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" data-id="ckndvg857000x20uici1x1jen" data-title="利用 Vue3 的特性 Custom Renderer 制作扫雷游戏" class="article-share-link">分享</a>
+      
+      
+        <a href="2021/04/12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="2021/04/12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Vue3/" rel="tag">Vue3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/custom-renderer/" rel="tag">custom renderer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/minesweeper/" rel="tag">minesweeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/pixijs/" rel="tag">pixijs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/vuejs/" rel="tag">vuejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E6%89%AB%E9%9B%B7/" rel="tag">扫雷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-利用p5js制作黑客帝国代码瀑布" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     <div class="article-meta">
@@ -102,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.github.io/blog/2021/04/09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" data-id="cknb7h8vl0001jsuidnmlffg6" data-title="使用 p5.js 制作《黑客帝国》中的代码瀑布" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.github.io/blog/2021/04/09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" data-id="ckndvg84v000120ui1gfq1tko" data-title="使用 p5.js 制作《黑客帝国》中的代码瀑布" class="article-share-link">分享</a>
       
       
         <a href="2021/04/09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/#comments" class="article-comment-link">
@@ -155,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.github.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="cknb7h8vn0004jsui0qt2g65z" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.github.io/blog/2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" data-id="ckndvg856000w20ui95571vwr" data-title="模拟 Amiibo，无需 NTAG 215 卡" class="article-share-link">分享</a>
       
       
         <a href="2021/04/04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/#comments" class="article-comment-link">
@@ -164,7 +240,7 @@
         </a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/amiibo/" rel="tag">amiibo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/joycontrol/" rel="tag">joycontrol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/nintendo-switch/" rel="tag">nintendo switch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E4%BB%BB%E5%A4%A9%E5%A0%82switch/" rel="tag">任天堂switch</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/amiibo/" rel="tag">amiibo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/joycontrol/" rel="tag">joycontrol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/nintendo-switch/" rel="tag">nintendo switch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E4%BB%BB%E5%A4%A9%E5%A0%82-switch/" rel="tag">任天堂 switch</a></li></ul>
 
     </footer>
   </div>
@@ -175,10 +251,10 @@
 
 
   
-    <article id="post-使用hexo在github-gitee搭建博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-使用hexo在github搭建博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     <div class="article-meta">
-      <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
+      <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
   <time class="dt-published" datetime="2021-04-03T13:15:48.000Z" itemprop="datePublished">2021-04-03</time>
 </a>
       
@@ -193,7 +269,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用 Hexo 在 Github/Gitee 搭建博客</a>
+      <a class="p-name article-title" href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用 Hexo 在 Github 上搭建博客</a>
     </h1>
   
 
@@ -203,21 +279,21 @@
       
         <p>Hexo 是一个快速、简洁且高效的博客框架，利用 Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。强大的 API 能与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babel，PostCSS，Less/Sass）轻易集成。</p>
         <p class="article-more-link">
-          <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more">阅读更多</a>
+          <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more">阅读更多</a>
         </p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.github.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="cknb7h8vh0000jsuiet94h86d" data-title="使用 Hexo 在 Github/Gitee 搭建博客" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.github.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="ckndvg84r000020ui6nbv7upb" data-title="使用 Hexo 在 Github 上搭建博客" class="article-share-link">分享</a>
       
       
-        <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
+        <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemprop="commentCount"></span>
           留言
         </a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/gitee/" rel="tag">gitee</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
 
     </footer>
   </div>
@@ -253,7 +329,7 @@
     <div class="widget-wrap">
       <h3 class="widget-title">标签</h3>
       <div class="widget">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/amiibo/" rel="tag">amiibo</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/blog/" rel="tag">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/gitee/" rel="tag">gitee</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/green-rain/" rel="tag">green rain</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/joycontrol/" rel="tag">joycontrol</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/matrix/" rel="tag">matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/matrix-code/" rel="tag">matrix code</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/matrix-digital-rain/" rel="tag">matrix digital rain</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/nintendo-switch/" rel="tag">nintendo switch</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/p5-js/" rel="tag">p5.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" rel="tag">代码瀑布</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E4%BB%BB%E5%A4%A9%E5%A0%82switch/" rel="tag">任天堂switch</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%AF%8D%E4%BD%93%E4%BB%A3%E7%A0%81/" rel="tag">母体代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD/" rel="tag">黑客帝国</a></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Vue3/" rel="tag">Vue3</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/amiibo/" rel="tag">amiibo</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/blog/" rel="tag">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/custom-renderer/" rel="tag">custom renderer</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/green-rain/" rel="tag">green rain</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/joycontrol/" rel="tag">joycontrol</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/matrix/" rel="tag">matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/matrix-code/" rel="tag">matrix code</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/matrix-digital-rain/" rel="tag">matrix digital rain</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/minesweeper/" rel="tag">minesweeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/nintendo-switch/" rel="tag">nintendo switch</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/p5-js/" rel="tag">p5.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/pixijs/" rel="tag">pixijs</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/vuejs/" rel="tag">vuejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" rel="tag">代码瀑布</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E4%BB%BB%E5%A4%A9%E5%A0%82-switch/" rel="tag">任天堂 switch</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%89%AB%E9%9B%B7/" rel="tag">扫雷</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E6%AF%8D%E4%BD%93%E4%BB%A3%E7%A0%81/" rel="tag">母体代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="tags/%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD/" rel="tag">黑客帝国</a></li></ul>
       </div>
     </div>
   
@@ -277,6 +353,10 @@
       <ul>
         
           <li>
+            <a href="2021/04/12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/">利用 Vue3 的特性 Custom Renderer 制作扫雷游戏</a>
+          </li>
+        
+          <li>
             <a href="2021/04/09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/">使用 p5.js 制作《黑客帝国》中的代码瀑布</a>
           </li>
         
@@ -285,7 +365,7 @@
           </li>
         
           <li>
-            <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用 Hexo 在 Github/Gitee 搭建博客</a>
+            <a href="2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用 Hexo 在 Github 上搭建博客</a>
           </li>
         
       </ul>

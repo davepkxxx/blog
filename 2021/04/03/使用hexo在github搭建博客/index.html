@@ -4,24 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>使用 Hexo 在 Github/Gitee 搭建博客 | 戴威的博客</title>
+  <title>使用 Hexo 在 Github 上搭建博客 | 戴威的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Hexo 是一个快速、简洁且高效的博客框架，利用 Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。强大的 API 能与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babe">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 Hexo 在 Github&#x2F;Gitee 搭建博客">
-<meta property="og:url" content="https://davepkxxx.github.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:title" content="使用 Hexo 在 Github 上搭建博客">
+<meta property="og:url" content="https://davepkxxx.github.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="戴威的博客">
 <meta property="og:description" content="Hexo 是一个快速、简洁且高效的博客框架，利用 Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。强大的 API 能与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babe">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-03T13:15:48.000Z">
-<meta property="article:modified_time" content="2021-04-10T01:45:39.848Z">
+<meta property="article:modified_time" content="2021-04-11T22:56:56.131Z">
 <meta property="article:author" content="戴威">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="blog">
 <meta property="article:tag" content="博客">
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="github">
-<meta property="article:tag" content="gitee">
 <meta name="twitter:card" content="summary">
   
   
@@ -77,7 +76,7 @@
       <div id="main-wrap">
         <aside id="sidebar-empty"></aside>
         <div class="outer">
-          <section id="main"><article id="post-使用hexo在github-gitee搭建博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article id="post-使用hexo在github搭建博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     <div class="article-meta">
       <a href="" class="article-date">
@@ -95,7 +94,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      使用 Hexo 在 Github/Gitee 搭建博客
+      使用 Hexo 在 Github 上搭建博客
     </h1>
   
 
@@ -104,19 +103,22 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <p>Hexo 是一个快速、简洁且高效的博客框架，利用 Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。强大的 API 能与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babel，PostCSS，Less/Sass）轻易集成。更多内容欢迎访问<a href="https://davepkxxx.github.io/blog/">我的博客</a>和 <a target="_blank" rel="noopener" href="https://github.com/davepkxxx">Github 代码仓库</a>。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装 Hexo 相当简单，只需要先安装 Node.js 和 Git，然后运行如下命令：</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>安装 Hexo 相当简单，只需要先安装 Node.js 和 Git，然后运行如下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
 <h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>文件 _config.yml 里是网站的 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。</p>
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="new"><a href="#new" class="headerlink" title="new"></a>new</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br></pre></td></tr></table></figure>
-<p>以上命令会创建一个 source/about/&lt;title&gt;.md 文件，如果标题包含空格的话，请使用引号括起来。</p>
-<h3 id="server"><a href="#server" class="headerlink" title="server"></a>server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>文件 _config.yml 里是网站的 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">配置</a> 信息，您可以在此配置大部分的参数。比如网站标题、网站使用的语言、网站时区、网址等。</p>
+<h1 id="Hexo-的常用命令"><a href="#Hexo-的常用命令" class="headerlink" title="Hexo 的常用命令"></a>Hexo 的常用命令</h1><h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>新建一篇文章，如果标题包含空格的话，请使用引号括起来。以上命令会创建一个 source/_posts 目录下创建 MarkDown 文件。在默认情况下，Hexo 会使用文章的标题来决定文章文件的名称。</p>
+<h2 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<p>生成静态文件。该命令可以简写为 <code>hexo g</code></p>
+<h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 <p>启动服务器。默认情况下，访问网址为： <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a></p>
-<h3 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<p>部署网站。该命令可以简写为：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>Hexo 提供了快速方便的一键部署功能，只需一条命令就能将网站部署到服务器上。</p>
+<h2 id="deploy"><a href="#deploy" class="headerlink" title="deploy"></a>deploy</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>部署网站。该命令可以简写为 <code>hexo d</code></p>
+<h2 id="clean"><a href="#clean" class="headerlink" title="clean"></a>clean</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<p>清除缓存文件 db.json 和 public 目录下已生成的静态文件。</p>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>Hexo 提供了快速方便的一键部署功能，只需一条命令就能将网站部署到服务器上。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
 <p>在开始之前，您必须先安装 hexo-deployer-git</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
@@ -127,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://davepkxxx.github.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github-gitee%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="cknb7h8vh0000jsuiet94h86d" data-title="使用 Hexo 在 Github/Gitee 搭建博客" class="article-share-link">分享</a>
+      <a data-url="https://davepkxxx.github.io/blog/2021/04/03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" data-id="ckndvg84r000020ui6nbv7upb" data-title="使用 Hexo 在 Github 上搭建博客" class="article-share-link">分享</a>
       
       
         <a href="#comments" class="article-comment-link">
@@ -136,7 +138,7 @@
         </a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/gitee/" rel="tag">gitee</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/github/" rel="tag">github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
 
     </footer>
   </div>
@@ -187,7 +189,7 @@
     <div class="widget-wrap">
   <h3 class="widget-title">目录</h3>
   <div class="widget">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%99"><span class="toc-text">建站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#new"><span class="toc-text">new</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server"><span class="toc-text">server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deploy"><span class="toc-text">deploy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-text">部署</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%99"><span class="toc-text">建站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Hexo-%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">Hexo 的常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#new"><span class="toc-text">new</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#generate"><span class="toc-text">generate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#server"><span class="toc-text">server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deploy"><span class="toc-text">deploy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#clean"><span class="toc-text">clean</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-text">部署</span></a></li></ol>
   </div>
 </div>
 
@@ -210,7 +212,7 @@
     <div class="widget-wrap">
       <h3 class="widget-title">标签</h3>
       <div class="widget">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/blog/" rel="tag">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/gitee/" rel="tag">gitee</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/blog/" rel="tag">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
       </div>
     </div>
   
@@ -227,6 +229,10 @@
       <ul>
         
           <li>
+            <a href="../../12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/">利用 Vue3 的特性 Custom Renderer 制作扫雷游戏</a>
+          </li>
+        
+          <li>
             <a href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/">使用 p5.js 制作《黑客帝国》中的代码瀑布</a>
           </li>
         
@@ -235,7 +241,7 @@
           </li>
         
           <li>
-            <a href="">使用 Hexo 在 Github/Gitee 搭建博客</a>
+            <a href="">使用 Hexo 在 Github 上搭建博客</a>
           </li>
         
       </ul>
