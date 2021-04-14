@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>使用 p5.js 制作《黑客帝国》中的代码瀑布 | 戴威的博客</title>
+  <title>p5.js 实现《黑客帝国》代码瀑布 | 戴威的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="代码瀑布（Matrix Digital Rain）又称为母体代码（Matrix Code），是电影《黑客帝国》中出现的电脑代码，在影片中经常表示为向下流动的绿色字符。我在参考了 AngeloGiacco&#x2F;matrix 的设计后，使用 p5.js 在浏览器的上实现了代码瀑布的效果。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 p5.js 制作《黑客帝国》中的代码瀑布">
+<meta property="og:title" content="p5.js 实现《黑客帝国》代码瀑布">
 <meta property="og:url" content="https://davepkxxx.github.io/blog/2021/04/09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/index.html">
 <meta property="og:site_name" content="戴威的博客">
 <meta property="og:description" content="代码瀑布（Matrix Digital Rain）又称为母体代码（Matrix Code），是电影《黑客帝国》中出现的电脑代码，在影片中经常表示为向下流动的绿色字符。我在参考了 AngeloGiacco&#x2F;matrix 的设计后，使用 p5.js 在浏览器的上实现了代码瀑布的效果。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-09T13:33:22.000Z">
-<meta property="article:modified_time" content="2021-04-11T22:36:12.871Z">
+<meta property="article:modified_time" content="2021-04-13T08:52:54.165Z">
 <meta property="article:author" content="戴威">
 <meta property="article:tag" content="matrix">
 <meta property="article:tag" content="黑客帝国">
@@ -30,14 +30,11 @@
     <link rel="shortcut icon" href="../../../../favicon.png">
   
   
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github.css">
   
   
 <link rel="stylesheet" href="../../../../css/style.css">
-
-  
-    
-<link rel="stylesheet" href="../../../../fancybox/jquery.fancybox.min.css">
 
   
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -45,133 +42,280 @@
 <body>
   <div id="container">
     <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-wrapper">
-    <div id="header-outer" class="outer">
-      <div id="header-inner" class="inner">
-        <div id="header-title">
-          <h1 id="logo-wrap">
-            <a href="../../../../index.html" id="logo">戴威的博客</a>
-          </h1>
-          
-        </div>
-        <nav id="main-nav">
-          <a id="main-nav-toggle" class="nav-icon"></a>
-          
-            <a class="main-nav-link" href="../../../../index.html">首页</a>
-          
-            <a class="main-nav-link" href="../../../../archives">归档</a>
-          
-        </nav>
-        <nav id="sub-nav">
-          
-          
-        </nav>
-        <div id="search-form-wrap">
-          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://davepkxxx.github.io/blog"></form>
-        </div>
+      <header id="header" class="fixed">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <div id="header-title">
+        <h1 id="logo-wrap">
+          <a href="../../../../index.html" id="logo">
+            <span class="logo-img"></span>
+            <span class="logo-text">戴威的博客</span>
+          </a>
+        </h1>
+        
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="../../../../index.html">首页</a>
+        
+          <a class="main-nav-link" href="../../../../archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://davepkxxx.github.io/blog"></form>
       </div>
     </div>
   </div>
 </header>
-
+<div id="banner">
+  <span></span>
+</div>
       <div id="main-wrap">
-        <aside id="sidebar-empty"></aside>
         <div class="outer">
-          <section id="main"><article id="post-利用p5js制作黑客帝国代码瀑布" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article
+  id="post-利用p5js制作黑客帝国代码瀑布"
+  class="h-entry article article-type-post  is-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    <div class="article-meta">
-      <a href="" class="article-date">
-  <time class="dt-published" datetime="2021-04-09T13:33:22.000Z" itemprop="datePublished">2021-04-09</time>
-</a>
+    <div class="article-thumbnail">
       
+        <span style="background-image: url(https://i.loli.net/2021/04/13/9sYLwh2tMWUqNjP.jpg);"></span>
+      
+    </div>
+    <div class="article-post">
+      <div class="article-header-wrap">
+        <div class="article-meta">
+          
   <div class="article-category">
-    <a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a>
+    <a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a><span class="article-category-separator"></span><a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/">JavaScript</a>
   </div>
 
-    </div>
-    
-    
-      <header class="article-header">
+        </div>
         
+        
+          <header class="article-header">
+            
   
     <h1 class="p-name article-title" itemprop="headline name">
-      使用 p5.js 制作《黑客帝国》中的代码瀑布
+      p5.js 实现《黑客帝国》代码瀑布
     </h1>
   
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+          </header>
+        
+        <div class="article-meta">
+          <span class="article-date">
+  
+  <time class="dt-published" datetime="2021-04-09T13:33:22.000Z" itemprop="datePublished">2021年4月9日</time>
+</span>
+        </div>
+      </div>
       
-        <p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%A2%BC%E7%80%91%E5%B8%83">代码瀑布</a>（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matrix_digital_rain">Matrix Digital Rain</a>）又称为母体代码（Matrix Code），是电影《黑客帝国》中出现的电脑代码，在影片中经常表示为向下流动的绿色字符。我在参考了 <a target="_blank" rel="noopener" href="https://github.com/AngeloGiacco/matrix">AngeloGiacco/matrix</a> 的设计后，利用 <a target="_blank" rel="noopener" href="https://p5js.org/">p5.js</a> 在浏览器的上实现了代码瀑布的效果。</p>
+        <div class="e-content article-entry" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%A2%BC%E7%80%91%E5%B8%83">代码瀑布</a>（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matrix_digital_rain">Matrix Digital Rain</a>）又称为母体代码（Matrix Code），是电影《黑客帝国》中出现的电脑代码，在影片中经常表示为向下流动的绿色字符。我在参考了 <a target="_blank" rel="noopener" href="https://github.com/AngeloGiacco/matrix">AngeloGiacco/matrix</a> 的设计后，利用 <a target="_blank" rel="noopener" href="https://p5js.org/">p5.js</a> 在浏览器的上实现了代码瀑布的效果。</p>
 <p>我的代码放在了我的 Github 仓库 <a target="_blank" rel="noopener" href="https://github.com/davepkxxx/matrix_digital_rain">davepkxxx/matrix_digital_rain</a> 里。我还为其在 Wallpaper Engine 里制作了壁纸，可以直接访问我在创意工坊里的壁纸项目 <a target="_blank" rel="noopener" href="https://steamcommunity.com/sharedfiles/filedetails/?id=2451193209">Matrix Digital Rain</a> 进行订阅。</p>
 <p>克隆代码之后命令行输入 <code>npm run build</code> 便会利用 rollup 打包好代码，入口文件是 public/index.html，推荐使用 Chrome 或者 Edge 的最新版本打开它。</p>
 <h1 id="p5-js-入门"><a href="#p5-js-入门" class="headerlink" title="p5.js 入门"></a>p5.js 入门</h1><p><a target="_blank" rel="noopener" href="https://p5js.org/">p5.js</a> 是个 JavaScript 创意编程程式库，它拥有完整的绘画功能，这包括了 HTML5 物件如文字、输入框、视屏、摄像头及音频。入门 p5.js 最简单的方法是使用 <a target="_blank" rel="noopener" href="https://editor.p5js.org/">p5.js 在线编辑器</a>，在编辑器中可以看到如下代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  createCanvas(<span class="number">400</span>, <span class="number">400</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  background(<span class="number">220</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setup</span> (<span class="hljs-params"></span>) </span>&#123;
+  createCanvas(<span class="hljs-number">400</span>, <span class="hljs-number">400</span>)
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">draw</span> (<span class="hljs-params"></span>) </span>&#123;
+  background(<span class="hljs-number">220</span>)
+&#125;</code></pre>
 <p>钩子函数 setup 将在程序开始时被调用一次。它可以被用来定义初始的环境属性如荧幕大小、背景颜色及媒体加载如图像及字体。在 setup 函数中我们使用了 createCanvas 函数创造一个画布元素，并以像素定义其大小。</p>
 <p>钩子函数 draw 会在 setup 之后被调用，该函数将持续地重复执行其中的代码直到该程式终止或当 noLoop 函数被调用。在 draw 函数中我们使用了 background 函数设定了 Canvas 画布的背景颜色，background 函数可以接受多种参数作为颜色：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 灰度值</span></span><br><span class="line">background(<span class="number">51</span>)</span><br><span class="line"><span class="comment">// RGB 值</span></span><br><span class="line">background(<span class="number">255</span>, <span class="number">204</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">// HSB 值</span></span><br><span class="line">colorMode(HSB)</span><br><span class="line">background(<span class="number">255</span>, <span class="number">204</span>, <span class="number">100</span>)</span><br><span class="line"><span class="comment">// 颜色名字</span></span><br><span class="line">background(<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line"><span class="comment">// 3 位数的 16 进制 RGB 值</span></span><br><span class="line">background(<span class="string">&#x27;#fae&#x27;</span>)</span><br><span class="line"><span class="comment">// 16 进制 RGB 值</span></span><br><span class="line">background(<span class="string">&#x27;#222222&#x27;</span>)</span><br><span class="line"><span class="comment">// RGB 函数</span></span><br><span class="line">background(<span class="string">&#x27;rgb(0,255,0)&#x27;</span>)</span><br><span class="line"><span class="comment">// RGBA 函数</span></span><br><span class="line">background(<span class="string">&#x27;rgba(0,255,0, 0.25)&#x27;</span>)</span><br><span class="line"><span class="comment">// 百分比 RGB 函数</span></span><br><span class="line">background(<span class="string">&#x27;rgb(100%,0%,10%)&#x27;</span>)</span><br><span class="line"><span class="comment">// 百分比 RGBA 函数</span></span><br><span class="line">background(<span class="string">&#x27;rgba(100%,0%,100%,0.5)&#x27;</span>)</span><br><span class="line"><span class="comment">// p5.js 的 color 函数</span></span><br><span class="line">background(color(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>))</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-comment">// 灰度值</span>
+background(<span class="hljs-number">51</span>)
+<span class="hljs-comment">// RGB 值</span>
+background(<span class="hljs-number">255</span>, <span class="hljs-number">204</span>, <span class="hljs-number">0</span>)
+<span class="hljs-comment">// HSB 值</span>
+colorMode(HSB)
+background(<span class="hljs-number">255</span>, <span class="hljs-number">204</span>, <span class="hljs-number">100</span>)
+<span class="hljs-comment">// 颜色名字</span>
+background(<span class="hljs-string">&#x27;red&#x27;</span>)
+<span class="hljs-comment">// 3 位数的 16 进制 RGB 值</span>
+background(<span class="hljs-string">&#x27;#fae&#x27;</span>)
+<span class="hljs-comment">// 16 进制 RGB 值</span>
+background(<span class="hljs-string">&#x27;#222222&#x27;</span>)
+<span class="hljs-comment">// RGB 函数</span>
+background(<span class="hljs-string">&#x27;rgb(0,255,0)&#x27;</span>)
+<span class="hljs-comment">// RGBA 函数</span>
+background(<span class="hljs-string">&#x27;rgba(0,255,0, 0.25)&#x27;</span>)
+<span class="hljs-comment">// 百分比 RGB 函数</span>
+background(<span class="hljs-string">&#x27;rgb(100%,0%,10%)&#x27;</span>)
+<span class="hljs-comment">// 百分比 RGBA 函数</span>
+background(<span class="hljs-string">&#x27;rgba(100%,0%,100%,0.5)&#x27;</span>)
+<span class="hljs-comment">// p5.js 的 color 函数</span>
+background(color(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>))</code></pre>
 <p>默认情况下，所有的 p5.j​​s 功能都在全局命名空间中，这意味着我们可以简单直接的调用 ellipse、fill 等函数。然而很多时候，我们都会跟其它的 JavaScript 库进行混合编程。为了应对这种情况，p5.j​​s 可以把所有函数都绑定在一个变量中，而不污染全局的命名空间：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> p5(<span class="function"><span class="params">p</span> =&gt;</span> &#123;</span><br><span class="line">  p.setup = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    p.createCanvas(<span class="number">400</span>, <span class="number">400</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  p.draw = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    p.background(<span class="number">220</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-keyword">new</span> p5(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> &#123;
+  p.setup = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+    p.createCanvas(<span class="hljs-number">400</span>, <span class="hljs-number">400</span>)
+  &#125;
+
+  p.draw = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+    p.background(<span class="hljs-number">220</span>)
+  &#125;
+&#125;)</code></pre>
 <h1 id="代码瀑布的设计"><a href="#代码瀑布的设计" class="headerlink" title="代码瀑布的设计"></a>代码瀑布的设计</h1><p>我们在全局中定义了两个变量 frames 和 streams，frames 用于记录当前帧数， streams 是代码瀑布的容器。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> frames = <span class="number">0</span></span><br><span class="line"><span class="keyword">let</span> streams = []</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-keyword">let</span> frames = <span class="hljs-number">0</span>
+<span class="hljs-keyword">let</span> streams = []</code></pre>
 <h2 id="setup-函数"><a href="#setup-函数" class="headerlink" title="setup 函数"></a>setup 函数</h2><p>在 setup 函数中我们定义了画布的大小、背景色和使用的字体。和电影中一样，我们要在代码瀑布中显示日文假名，所以我们使用了游朝体作为渲染字体。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setup</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  createCanvas(<span class="built_in">window</span>.innerWidth, <span class="built_in">window</span>.innerHeight)</span><br><span class="line">  background(<span class="number">0</span>)</span><br><span class="line">  textFont(<span class="string">&#x27;Yu Gothic&#x27;</span>)</span><br><span class="line">  textSize(<span class="number">12</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setup</span> (<span class="hljs-params"></span>) </span>&#123;
+  createCanvas(<span class="hljs-built_in">window</span>.innerWidth, <span class="hljs-built_in">window</span>.innerHeight)
+  background(<span class="hljs-number">0</span>)
+  textFont(<span class="hljs-string">&#x27;Yu Gothic&#x27;</span>)
+  textSize(<span class="hljs-number">12</span>)
+&#125;</code></pre>
 <h2 id="draw-函数"><a href="#draw-函数" class="headerlink" title="draw 函数"></a>draw 函数</h2><p>在 draw 函数中我们会在每一帧时重新绘制背景。每 5 帧我们增加一条代码流，每 3 帧为代码流增加一个字母，每 15 帧（是“增加代码流”的帧数和“增加代码流中字母”的帧数的公倍数）我们重置一次帧的计数。</p>
 <p>为了性能会在循环渲染每一个代码流的时候计算它的下一次变化。渲染完成后会在代码瀑布的容器中移除已经消失的代码流。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  background(<span class="number">0</span>)</span><br><span class="line">  <span class="comment">// add steam</span></span><br><span class="line">  <span class="keyword">if</span> (frames % <span class="number">5</span> === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> stream = createStream()</span><br><span class="line">    <span class="keyword">if</span> (stream) streams.push(stream)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// render</span></span><br><span class="line">  streams = streams.filter(<span class="function">(<span class="params">e, i</span>) =&gt;</span> &#123;</span><br><span class="line">    render(e.symbols)</span><br><span class="line">    <span class="keyword">if</span> (frames % <span class="number">3</span> === <span class="number">0</span>) nextTick(e)</span><br><span class="line">    <span class="keyword">return</span> !e.hidden</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// next frame</span></span><br><span class="line">  <span class="keyword">if</span> (frames &lt; <span class="number">15</span>) &#123; frames++ &#125; <span class="keyword">else</span> &#123; frames = <span class="number">0</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">draw</span> (<span class="hljs-params"></span>) </span>&#123;
+  background(<span class="hljs-number">0</span>)
+  <span class="hljs-comment">// add steam</span>
+  <span class="hljs-keyword">if</span> (frames % <span class="hljs-number">5</span> === <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">const</span> stream = createStream()
+    <span class="hljs-keyword">if</span> (stream) streams.push(stream)
+  &#125;
+  <span class="hljs-comment">// render</span>
+  streams = streams.filter(<span class="hljs-function">(<span class="hljs-params">e, i</span>) =&gt;</span> &#123;
+    render(e.symbols)
+    <span class="hljs-keyword">if</span> (frames % <span class="hljs-number">3</span> === <span class="hljs-number">0</span>) nextTick(e)
+    <span class="hljs-keyword">return</span> !e.hidden
+  &#125;)
+  <span class="hljs-comment">// next frame</span>
+  <span class="hljs-keyword">if</span> (frames &lt; <span class="hljs-number">15</span>) &#123; frames++ &#125; <span class="hljs-keyword">else</span> &#123; frames = <span class="hljs-number">0</span> &#125;
+&#125;</code></pre>
 <h2 id="创建代码流"><a href="#创建代码流" class="headerlink" title="创建代码流"></a>创建代码流</h2><p>首先我们生成代码流的 X 轴坐标，然后在这条新代码流中创建它的第一个字符。在 Canvas 中有过多的代码流时会放弃创建新的代码流。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createStream</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x = createStreamX()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (x &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> symbol = createSymbol(&#123; x &#125;)</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      x,</span><br><span class="line">      symbols: [symbol],</span><br><span class="line">      first: symbol,</span><br><span class="line">      last: symbol,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createStream</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> x = createStreamX()
+
+  <span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">const</span> symbol = createSymbol(&#123; x &#125;)
+    <span class="hljs-keyword">return</span> &#123;
+      x,
+      symbols: [symbol],
+      first: symbol,
+      last: symbol,
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+&#125;</code></pre>
 <h2 id="创建代码流的-X-轴坐标"><a href="#创建代码流的-X-轴坐标" class="headerlink" title="创建代码流的 X 轴坐标"></a>创建代码流的 X 轴坐标</h2><p>根据文字大小把 Canvas 分成若干列，随机选取其中的一列 X 轴坐标作为代码流的 X 轴坐标。在该列已有代码流并且该代码流的第一个字母并未消失时，就新随机一个代码流的 X 轴坐标。如果随机 10 次都被占用了，就说明 Canvas 中有过多的代码流，这时我们放弃创建新的代码流。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createStreamX</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> x = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="built_in">window</span>.innerWidth / <span class="number">12</span>)) * <span class="number">12</span></span><br><span class="line">    <span class="keyword">if</span> (streams.every(<span class="function"><span class="params">e</span> =&gt;</span> e.x !== x || e.first.hidden)) <span class="keyword">return</span> x</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createStreamX</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) &#123;
+    <span class="hljs-keyword">const</span> x = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * (<span class="hljs-built_in">window</span>.innerWidth / <span class="hljs-number">12</span>)) * <span class="hljs-number">12</span>
+    <span class="hljs-keyword">if</span> (streams.every(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e.x !== x || e.first.hidden)) <span class="hljs-keyword">return</span> x
+  &#125;
+  <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>
+&#125;</code></pre>
 <h2 id="创建代码流里的字符"><a href="#创建代码流里的字符" class="headerlink" title="创建代码流里的字符"></a>创建代码流里的字符</h2><p>生成代码流字符的参数，用于在 render 函数里渲染到 Canvas 上，默认值都可以被参数 inital 里的数据替换。同电影中一样，代码流里的第一个字符会显示为白色，而后在 nextTick 函数中会被改为绿色。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createSymbol</span> (<span class="params">inital</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    x: <span class="number">0</span>,</span><br><span class="line">    y: <span class="number">12</span>,</span><br><span class="line">    text: createText(),</span><br><span class="line">    color: color(<span class="number">255</span>),</span><br><span class="line">    ...inital,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createSymbol</span> (<span class="hljs-params">inital</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> &#123;
+    x: <span class="hljs-number">0</span>,
+    y: <span class="hljs-number">12</span>,
+    text: createText(),
+    color: color(<span class="hljs-number">255</span>),
+    ...inital,
+  &#125;
+&#125;</code></pre>
 <h2 id="创建显示的代码文字"><a href="#创建显示的代码文字" class="headerlink" title="创建显示的代码文字"></a>创建显示的代码文字</h2><p>显示的代码文字选取了数字、拉丁字母和日文片假名，和《黑客帝国》电影中一致。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createText</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> r = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (<span class="number">10</span> + <span class="number">26</span> * <span class="number">2</span> + <span class="number">90</span>))</span><br><span class="line">  <span class="keyword">let</span> c</span><br><span class="line">  <span class="keyword">if</span> (r &lt; <span class="number">10</span>) &#123; c = <span class="number">0x0030</span> + r &#125; <span class="keyword">else</span> &#123; r -= <span class="number">10</span> &#125; <span class="comment">// digits</span></span><br><span class="line">  <span class="keyword">if</span> (!c &amp;&amp; r &lt; <span class="number">26</span>) &#123; c = <span class="number">0x0041</span> + r &#125; <span class="keyword">else</span> &#123; r -= <span class="number">26</span> &#125; <span class="comment">// upper-latin</span></span><br><span class="line">  <span class="keyword">if</span> (!c &amp;&amp; r &lt; <span class="number">26</span>) &#123; c = <span class="number">0x0061</span> + r &#125; <span class="keyword">else</span> &#123; r -= <span class="number">26</span> &#125; <span class="comment">// lower-latin</span></span><br><span class="line">  <span class="keyword">if</span> (!c) c = <span class="number">0x30a1</span> + r <span class="comment">// katakana</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">String</span>.fromCharCode(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createText</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">let</span> r = <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * (<span class="hljs-number">10</span> + <span class="hljs-number">26</span> * <span class="hljs-number">2</span> + <span class="hljs-number">90</span>))
+  <span class="hljs-keyword">let</span> c
+  <span class="hljs-keyword">if</span> (r &lt; <span class="hljs-number">10</span>) &#123; c = <span class="hljs-number">0x0030</span> + r &#125; <span class="hljs-keyword">else</span> &#123; r -= <span class="hljs-number">10</span> &#125; <span class="hljs-comment">// digits</span>
+  <span class="hljs-keyword">if</span> (!c &amp;&amp; r &lt; <span class="hljs-number">26</span>) &#123; c = <span class="hljs-number">0x0041</span> + r &#125; <span class="hljs-keyword">else</span> &#123; r -= <span class="hljs-number">26</span> &#125; <span class="hljs-comment">// upper-latin</span>
+  <span class="hljs-keyword">if</span> (!c &amp;&amp; r &lt; <span class="hljs-number">26</span>) &#123; c = <span class="hljs-number">0x0061</span> + r &#125; <span class="hljs-keyword">else</span> &#123; r -= <span class="hljs-number">26</span> &#125; <span class="hljs-comment">// lower-latin</span>
+  <span class="hljs-keyword">if</span> (!c) c = <span class="hljs-number">0x30a1</span> + r <span class="hljs-comment">// katakana</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">String</span>.fromCharCode(c)
+&#125;</code></pre>
 <h2 id="渲染代码文字"><a href="#渲染代码文字" class="headerlink" title="渲染代码文字"></a>渲染代码文字</h2><p>根据字符配置在 Canvas 中渲染代码文字。为了减少消耗，已经消失的文字不会被渲染。因为数字、字母和假名的宽度不一，所以把对齐模式设置为居中。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span> (<span class="params">symbols</span>) </span>&#123;</span><br><span class="line">  symbols.forEach(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!e.hidden) &#123;</span><br><span class="line">      fill(e.color)</span><br><span class="line">      textAlign(CENTER)</span><br><span class="line">      text(e.text, e.x, e.y)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span> (<span class="hljs-params">symbols</span>) </span>&#123;
+  symbols.forEach(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (!e.hidden) &#123;
+      fill(e.color)
+      textAlign(CENTER)
+      text(e.text, e.x, e.y)
+    &#125;
+  &#125;)
+&#125;</code></pre>
 <h2 id="代码流变化"><a href="#代码流变化" class="headerlink" title="代码流变化"></a>代码流变化</h2><p>在每一次代码流变化中，都会让代码流的文字渐隐。当代码流里最后一个隐藏字符的 Y 轴坐标超过了 Canvas 的高度，就会把这条代码流标记为已经消失。如果这个代码流没有消失，就会给它增加新的字符。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">nextTick</span> (<span class="params">stream</span>) </span>&#123;</span><br><span class="line">  fadeOut(stream)</span><br><span class="line">  <span class="comment">// next symbol</span></span><br><span class="line">  <span class="keyword">if</span> (!stream.lastHidden || stream.lastHidden.y &lt; <span class="built_in">window</span>.innerHeight) &#123;</span><br><span class="line">    <span class="keyword">const</span> symbol = createSymbol(&#123; <span class="attr">x</span>: stream.last.x, <span class="attr">y</span>: stream.last.y + <span class="number">12</span> &#125;)</span><br><span class="line">    stream.symbols.push(symbol)</span><br><span class="line">    stream.last = symbol</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    stream.hidden = <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nextTick</span> (<span class="hljs-params">stream</span>) </span>&#123;
+  fadeOut(stream)
+  <span class="hljs-comment">// next symbol</span>
+  <span class="hljs-keyword">if</span> (!stream.lastHidden || stream.lastHidden.y &lt; <span class="hljs-built_in">window</span>.innerHeight) &#123;
+    <span class="hljs-keyword">const</span> symbol = createSymbol(&#123; <span class="hljs-attr">x</span>: stream.last.x, <span class="hljs-attr">y</span>: stream.last.y + <span class="hljs-number">12</span> &#125;)
+    stream.symbols.push(symbol)
+    stream.last = symbol
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    stream.hidden = <span class="hljs-literal">true</span>
+  &#125;
+&#125;</code></pre>
 <h2 id="代码流渐隐"><a href="#代码流渐隐" class="headerlink" title="代码流渐隐"></a>代码流渐隐</h2><p>每次代码流发生变化都会让代码流里的字符透明度降低。如果这个字符透明度归零，就会把它标记为隐藏，并且记录代码流中最后一个隐藏的字符。</p>
 <p>参考电影，在代码流发生变化时，我会让代码流中的每一个字符有 3% 的概率变成其他文字。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fadeOut</span> (<span class="params">stream</span>) </span>&#123;</span><br><span class="line">  stream.symbols.forEach(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// change text</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Math</span>.random() &lt; <span class="number">0.03</span>) e.text = createText()</span><br><span class="line">    <span class="comment">// change alpha</span></span><br><span class="line">    <span class="keyword">const</span> a = alpha(e.color) - <span class="number">10</span></span><br><span class="line">    e.color = color(<span class="number">0</span>, <span class="number">255</span>, <span class="number">70</span>, a)</span><br><span class="line">    <span class="comment">// hide</span></span><br><span class="line">    <span class="keyword">if</span> (a &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      e.hidden = <span class="literal">true</span></span><br><span class="line">      stream.lastHidden = e</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fadeOut</span> (<span class="hljs-params">stream</span>) </span>&#123;
+  stream.symbols.forEach(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> &#123;
+    <span class="hljs-comment">// change text</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Math</span>.random() &lt; <span class="hljs-number">0.03</span>) e.text = createText()
+    <span class="hljs-comment">// change alpha</span>
+    <span class="hljs-keyword">const</span> a = alpha(e.color) - <span class="hljs-number">10</span>
+    e.color = color(<span class="hljs-number">0</span>, <span class="hljs-number">255</span>, <span class="hljs-number">70</span>, a)
+    <span class="hljs-comment">// hide</span>
+    <span class="hljs-keyword">if</span> (a &lt;= <span class="hljs-number">0</span>) &#123;
+      e.hidden = <span class="hljs-literal">true</span>
+      stream.lastHidden = e
+    &#125;
+  &#125;)
+&#125;</code></pre>
 
+        </div>
       
     </div>
-    <footer class="article-footer">
-      <a data-url="https://davepkxxx.github.io/blog/2021/04/09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" data-id="ckndwff8c0001mcuigl6mfsmp" data-title="使用 p5.js 制作《黑客帝国》中的代码瀑布" class="article-share-link">分享</a>
-      
-      
-        <a href="#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="" itemprop="commentCount"></span>
-          留言
-        </a>
-      
-      
+    
+      <footer class="article-footer">
+        <!--
+        <a data-url="https://davepkxxx.github.io/blog/2021/04/09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" data-id="cknhg804n0001s0ui9ypwebq4" data-title="p5.js 实现《黑客帝国》代码瀑布" class="article-share-link">分享</a>
+        
+        
+          <a href="#comments" class="article-comment-link">
+            <span class="post-comments-count valine-comment-count" data-xid="" itemprop="commentCount"></span>
+            留言
+          </a>
+        
+        -->
+        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/green-rain/" rel="tag">green rain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/matrix/" rel="tag">matrix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/matrix-code/" rel="tag">matrix code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/matrix-digital-rain/" rel="tag">matrix digital rain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/p5-js/" rel="tag">p5.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" rel="tag">代码瀑布</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E6%AF%8D%E4%BD%93%E4%BB%A3%E7%A0%81/" rel="tag">母体代码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD/" rel="tag">黑客帝国</a></li></ul>
 
-    </footer>
+      </footer>
+    
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="../../12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+    <div id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
+      <a href="../../12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" class="article-nav-title">
         
-          用 Vue3 的特性 Custom Renderer 制作扫雷游戏
+          用 Vue3 的 Custom Renderer 制作扫雷游戏
         
-      </div>
-    </a>
+        </a>
+    </div>
   
   
-    <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" id="article-nav-older" class="article-nav-link-wrap">
+    <div href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">模拟 Amiibo，无需 NTAG 215 卡</div>
-    </a>
+      <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" class="article-nav-title">
+        无需 NTAG 215 卡模拟 Amiibo
+      </a>
+    </div>
   
 </nav>
 
@@ -199,82 +343,141 @@
 </script>
 
 </section>
-        </div>
-        
-            <aside id="sidebar">
+          <aside id="sidebar">
   
     <div class="widget-wrap">
-  <h3 class="widget-title">目录</h3>
+  <h3 class="widget-title">
+    <span>目录</span>
+  </h3>
   <div class="widget">
     <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#p5-js-%E5%85%A5%E9%97%A8"><span class="toc-text">p5.js 入门</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="toc-text">代码瀑布的设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setup-%E5%87%BD%E6%95%B0"><span class="toc-text">setup 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#draw-%E5%87%BD%E6%95%B0"><span class="toc-text">draw 函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%A3%E7%A0%81%E6%B5%81"><span class="toc-text">创建代码流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%A3%E7%A0%81%E6%B5%81%E7%9A%84-X-%E8%BD%B4%E5%9D%90%E6%A0%87"><span class="toc-text">创建代码流的 X 轴坐标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%A3%E7%A0%81%E6%B5%81%E9%87%8C%E7%9A%84%E5%AD%97%E7%AC%A6"><span class="toc-text">创建代码流里的字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%98%BE%E7%A4%BA%E7%9A%84%E4%BB%A3%E7%A0%81%E6%96%87%E5%AD%97"><span class="toc-text">创建显示的代码文字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E4%BB%A3%E7%A0%81%E6%96%87%E5%AD%97"><span class="toc-text">渲染代码文字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B5%81%E5%8F%98%E5%8C%96"><span class="toc-text">代码流变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B5%81%E6%B8%90%E9%9A%90"><span class="toc-text">代码流渐隐</span></a></li></ol></li></ol>
   </div>
 </div>
 
+  
+  
     
-    
-      
   
     <div class="widget-wrap">
-      <h3 class="widget-title">分类</h3>
+      <h3 class="widget-title">
+        <span>分类</span>
+      </h3>
       <div class="widget">
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a></li></ul>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/">JavaScript</a><span class="category-list-count">2</span></li></ul></li></ul>
       </div>
     </div>
   
 
 
+  
     
-      
   
     <div class="widget-wrap">
-      <h3 class="widget-title">标签</h3>
+      <h3 class="widget-title">
+        <span>标签</span>
+      </h3>
       <div class="widget">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/green-rain/" rel="tag">green rain</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix/" rel="tag">matrix</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix-code/" rel="tag">matrix code</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix-digital-rain/" rel="tag">matrix digital rain</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/p5-js/" rel="tag">p5.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" rel="tag">代码瀑布</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%AF%8D%E4%BD%93%E4%BB%A3%E7%A0%81/" rel="tag">母体代码</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD/" rel="tag">黑客帝国</a></li></ul>
+        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/green-rain/" rel="tag">green rain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix/" rel="tag">matrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix-code/" rel="tag">matrix code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix-digital-rain/" rel="tag">matrix digital rain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/p5-js/" rel="tag">p5.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" rel="tag">代码瀑布</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%AF%8D%E4%BD%93%E4%BB%A3%E7%A0%81/" rel="tag">母体代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD/" rel="tag">黑客帝国</a><span class="tag-list-count">1</span></li></ul>
       </div>
     </div>
   
 
 
+  
     
-      
 
+  
     
-      
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
+  <div class="widget-wrap recent-posts">
+    <h3 class="widget-title">
+      <span>最新文章</span>
+    </h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="../../12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/">用 Vue3 的特性 Custom Renderer 制作扫雷游戏</a>
+            <div class="recent-posts-thumbnail">
+              <a href="../../12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" style="background-image: url(https://i.loli.net/2021/04/13/vYrDwVnEMopIc4x.jpg);"></a>
+            </div>
+            <div class="recent-posts-header">
+              <h4 class="recent-posts-title">
+                <a href="../../12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/">用 Vue3 的 Custom Renderer 制作扫雷游戏</a>
+              </h4>
+              <time class="dt-published" datetime="2021-04-11T21:42:17.000Z" itemprop="datePublished">2021年4月12日</time>
+            </div>
           </li>
         
           <li>
-            <a href="">使用 p5.js 制作《黑客帝国》中的代码瀑布</a>
+            <div class="recent-posts-thumbnail">
+              <a href="" style="background-image: url(https://i.loli.net/2021/04/13/9sYLwh2tMWUqNjP.jpg);"></a>
+            </div>
+            <div class="recent-posts-header">
+              <h4 class="recent-posts-title">
+                <a href="">p5.js 实现《黑客帝国》代码瀑布</a>
+              </h4>
+              <time class="dt-published" datetime="2021-04-09T13:33:22.000Z" itemprop="datePublished">2021年4月9日</time>
+            </div>
           </li>
         
           <li>
-            <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/">模拟 Amiibo，无需 NTAG 215 卡</a>
+            <div class="recent-posts-thumbnail">
+              <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" style="background-image: url(https://i.loli.net/2021/04/13/PlyU1ohrMeD5EOZ.jpg);"></a>
+            </div>
+            <div class="recent-posts-header">
+              <h4 class="recent-posts-title">
+                <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/">无需 NTAG 215 卡模拟 Amiibo</a>
+              </h4>
+              <time class="dt-published" datetime="2021-04-04T11:09:33.000Z" itemprop="datePublished">2021年4月4日</time>
+            </div>
           </li>
         
           <li>
-            <a href="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用 Hexo 在 Github 上搭建博客</a>
+            <div class="recent-posts-thumbnail">
+              <a href="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" style="background-image: url(https://i.loli.net/2021/04/13/OciJCAlbt2vpKgG.jpg);"></a>
+            </div>
+            <div class="recent-posts-header">
+              <h4 class="recent-posts-title">
+                <a href="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用 Hexo 在 Github 上搭建博客</a>
+              </h4>
+              <time class="dt-published" datetime="2021-04-03T13:15:48.000Z" itemprop="datePublished">2021年4月3日</time>
+            </div>
           </li>
         
       </ul>
     </div>
   </div>
 
-    
+  
 </aside>
-        
+        </div>
       </div>
       <footer id="footer">
   
   <div class="outer">
+    
+      <div id="footer-socials" class="inner">
+        <ul>
+          
+            <li>
+              <a href="mailto:davepkxxx@gmail.com">
+                <i class="socials-icon socials-email"></i>
+                <span>email</span>
+              </a>
+            </li>
+          
+            <li>
+              <a target="_blank" rel="noopener" href="https://github.com/davepkxxx">
+                <i class="socials-icon socials-github"></i>
+                <span>github</span>
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    
     <div id="footer-info" class="inner">
       
-      &copy; 2021 戴威<br>
+      &copy; 2021 戴威
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
@@ -290,13 +493,7 @@
 </nav>
     
 
-
-<script src="../../../../js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="../../../../fancybox/jquery.fancybox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
 
 
