@@ -38,87 +38,45 @@
 <meta name="generator" content="Hexo 5.4.0"></head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header" class="fixed">
-  <div id="header-outer" class="outer">
-    <div id="header-inner" class="inner">
-      <div id="header-title">
-        <h1 id="logo-wrap">
-          <a href="../../../../index.html" id="logo">
-            <span class="logo-img"></span>
-            <span class="logo-text">戴威的博客</span>
-          </a>
-        </h1>
-        
-      </div>
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="../../../../index.html">首页</a>
-        
-          <a class="main-nav-link" href="../../../../archives">归档</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://davepkxxx.github.io/blog"></form>
-      </div>
-    </div>
+  <header id="header" class="fixed">
+  <div class="inner">
+    <a href="../../../../index.html" id="logo">
+      <img src="https://i.loli.net/2021/04/14/EpkL8H9JahVYMqf.png" alt="logo"></img>
+    </a>
+    <nav id="navbar">
+      <a id="mobile-navbar-toggle"></a>
+      <ul>
+      
+        <li>
+          <a href="../../../../index.html">首页</a>
+        </li>
+      
+        <li>
+          <a href="../../../../archives">归档</a>
+        </li>
+      
+      </ul>
+    </nav>
   </div>
 </header>
 <div id="banner">
   <span></span>
 </div>
-      <div id="main-wrap">
-        <div class="outer">
-          <section id="main"><article
-  id="post-用vue3的特性custom-renderer制作扫雷游戏"
-  class="h-entry article article-type-post  is-post"
-  itemprop="blogPost"
+  <section id="body" class="inner">
+    <main id="main"><article
+  class="article-post"
+  itemid=""
   itemscope
   itemtype="https://schema.org/BlogPosting"
 >
-  <div class="article-inner">
-    <div class="article-thumbnail">
-      
-        <span style="background-image: url(https://i.loli.net/2021/04/13/vYrDwVnEMopIc4x.jpg);"></span>
-      
-    </div>
-    <div class="article-post">
-      <div class="article-header-wrap">
-        <div class="article-meta">
-          
-  <div class="article-category">
-    <a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a><span class="article-category-separator"></span><a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/">JavaScript</a><span class="article-category-separator"></span><a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/Vue-js/">Vue.js</a>
-  </div>
-
-        </div>
-        
-        
-          <header class="article-header">
-            
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      用 Vue3 的 Custom Renderer 制作扫雷游戏
-    </h1>
-  
-
-          </header>
-        
-        <div class="article-meta">
-          <span class="article-date">
-  
-  <time class="dt-published" datetime="2021-04-11T21:42:17.000Z" itemprop="datePublished">2021年4月12日</time>
-</span>
-        </div>
-      </div>
-      
-        <div class="e-content article-entry" itemprop="articleBody">
-          <p>虽然在大多数网络应用中，我们可能都会渲染到DOM。但是现在通过 <a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/">Vue3</a> 的 Custom Renderer 特性，我们可以自己制作渲染器把 Vue 组件渲染到其它平台。</p>
+  <header class="article-header">
+    <div class="article-category" itemprop="articleSection">
+  <a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a><span class="article-category-separator"></span><a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/">JavaScript</a><span class="article-category-separator"></span><a class="article-category-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/Vue-js/">Vue.js</a>
+</div>
+    <title class="article-title" href="" itemprop="headline">用 Vue3 的 Custom Renderer 制作扫雷游戏</title>
+    <time class="article-time" itemprop="datePublished" datetime="2021-04-11T21:42:17.000Z">2021年4月12日</time>
+  </header>
+  <main class="article-body" itemprop="articleBody"><p>虽然在大多数网络应用中，我们可能都会渲染到DOM。但是现在通过 <a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/">Vue3</a> 的 Custom Renderer 特性，我们可以自己制作渲染器把 Vue 组件渲染到其它平台。</p>
 <h1 id="vue-runtime-core"><a href="#vue-runtime-core" class="headerlink" title="@vue/runtime-core"></a>@vue/runtime-core</h1><p>Vue3 本身是高度模块化的，它提供了程序包 <a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/tree/master/packages/runtime-core">@vue/runtime-core</a> 来帮助我们构建自己的 Vue 的渲染器。<a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-next/tree/master/packages/runtime-dom">@vue/runtime-dom</a> 则向我们展示了如何实现一个 DOM 渲染器。</p>
 <p>在下面的代码中，简单列举了实现一个自定义渲染器所需的函数</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; createRenderer &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@vue/runtime-core&#x27;</span>
@@ -161,45 +119,29 @@ npm install
 npm run dev</code></pre>
 
 
-
-        </div>
-      
-    </div>
+</main>
+  <footer class="article-footer">
     
-      <footer class="article-footer">
-        <!--
-        <a data-url="https://davepkxxx.github.io/blog/2021/04/12/%E7%94%A8vue3%E7%9A%84%E7%89%B9%E6%80%A7custom-renderer%E5%88%B6%E4%BD%9C%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F/" data-id="cknhg804r0005s0uievri8c2t" data-title="用 Vue3 的 Custom Renderer 制作扫雷游戏" class="article-share-link">分享</a>
-        
-        
-          <a href="#comments" class="article-comment-link">
-            <span class="post-comments-count valine-comment-count" data-xid="" itemprop="commentCount"></span>
-            留言
-          </a>
-        
-        -->
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/custom-renderer/" rel="tag">custom renderer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/minesweeper/" rel="tag">minesweeper</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/pixijs/" rel="tag">pixijs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/vue3/" rel="tag">vue3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/vuejs/" rel="tag">vuejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../../../tags/%E6%89%AB%E9%9B%B7/" rel="tag">扫雷</a></li></ul>
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/custom-renderer/" rel="tag">custom renderer</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/minesweeper/" rel="tag">minesweeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pixijs/" rel="tag">pixijs</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vue3/" rel="tag">vue3</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vuejs/" rel="tag">vuejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%89%AB%E9%9B%B7/" rel="tag">扫雷</a></li></ul>
 
-      </footer>
-    
-  </div>
-  
-    
-<nav id="article-nav">
-  
-  
-    <div href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">后一篇</strong>
-      <a href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" class="article-nav-title">
-        p5.js 实现《黑客帝国》代码瀑布
-      </a>
-    </div>
-  
-</nav>
-
-  
+  </footer>
 </article>
 
+<nav class="article-nav">
+  <div class="article-nav-item article-nav-newer">
+    
+  </div>
+  <div class="article-nav-item article-nav-older">
+    
+      <div class="article-nav-caption">后一篇</div>
+      <div class="article-nav-title">
+        <a href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/">
+          p5.js 实现《黑客帝国》代码瀑布
+        </a>
+      </div>
+    
+  </div>
+</nav>
 
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
@@ -220,45 +162,35 @@ npm run dev</code></pre>
   gitalk.render('gitalk-container')
 </script>
 
+</main>
+    <aside id="sidebar">
+  
+    <section class="widget">
+  <header>
+    <title>目录</title>
+  </header>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-runtime-core"><span class="toc-text">@vue&#x2F;runtime-core</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#createRenderer"><span class="toc-text">createRenderer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#patchProp"><span class="toc-text">patchProp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#insert"><span class="toc-text">insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#remove"><span class="toc-text">remove</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#createElement"><span class="toc-text">createElement</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PixiJS"><span class="toc-text">PixiJS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F%E4%BB%A3%E7%A0%81"><span class="toc-text">扫雷游戏代码</span></a></li></ol>
 </section>
-          <aside id="sidebar">
-  
-    <div class="widget-wrap">
-  <h3 class="widget-title">
-    <span>目录</span>
-  </h3>
-  <div class="widget">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#vue-runtime-core"><span class="toc-text">@vue&#x2F;runtime-core</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#createRenderer"><span class="toc-text">createRenderer</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#patchProp"><span class="toc-text">patchProp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#insert"><span class="toc-text">insert</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#remove"><span class="toc-text">remove</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#createElement"><span class="toc-text">createElement</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PixiJS"><span class="toc-text">PixiJS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%89%AB%E9%9B%B7%E6%B8%B8%E6%88%8F%E4%BB%A3%E7%A0%81"><span class="toc-text">扫雷游戏代码</span></a></li></ol>
-  </div>
-</div>
 
   
   
     
-  
-    <div class="widget-wrap">
-      <h3 class="widget-title">
-        <span>分类</span>
-      </h3>
-      <div class="widget">
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/">JavaScript</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/Vue-js/">Vue.js</a><span class="category-list-count">1</span></li></ul></li></ul></li></ul>
-      </div>
-    </div>
-  
+  <section class="widget">
+    <header>
+      <title>分类</title>
+    </header>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/">信息技术</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/">JavaScript</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF/JavaScript/Vue-js/">Vue.js</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="../../../../categories/%E6%B8%B8%E6%88%8F/">游戏</a><span class="category-list-count">1</span></li></ul>
+  </section>
 
 
   
     
-  
-    <div class="widget-wrap">
-      <h3 class="widget-title">
-        <span>标签</span>
-      </h3>
-      <div class="widget">
-        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/custom-renderer/" rel="tag">custom renderer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/minesweeper/" rel="tag">minesweeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pixijs/" rel="tag">pixijs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vue3/" rel="tag">vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vuejs/" rel="tag">vuejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%89%AB%E9%9B%B7/" rel="tag">扫雷</a><span class="tag-list-count">1</span></li></ul>
-      </div>
-    </div>
-  
+  <section class="widget">
+    <header>
+      <title>标签</title>
+    </header>
+    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/amiibo/" rel="tag">amiibo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/blog/" rel="tag">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/custom-renderer/" rel="tag">custom renderer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/github/" rel="tag">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/green-rain/" rel="tag">green rain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/joycontrol/" rel="tag">joycontrol</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/linux/" rel="tag">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix/" rel="tag">matrix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix-code/" rel="tag">matrix code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/matrix-digital-rain/" rel="tag">matrix digital rain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/minesweeper/" rel="tag">minesweeper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/nintendo-switch/" rel="tag">nintendo switch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/p5-js/" rel="tag">p5.js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/pixijs/" rel="tag">pixijs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vue3/" rel="tag">vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/vuejs/" rel="tag">vuejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" rel="tag">代码瀑布</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E4%BB%BB%E5%A4%A9%E5%A0%82-switch/" rel="tag">任天堂 switch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%89%AB%E9%9B%B7/" rel="tag">扫雷</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E6%AF%8D%E4%BD%93%E4%BB%A3%E7%A0%81/" rel="tag">母体代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="../../../../tags/%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD/" rel="tag">黑客帝国</a><span class="tag-list-count">1</span></li></ul>
+  </section>
 
 
   
@@ -266,74 +198,79 @@ npm run dev</code></pre>
 
   
     
-  <div class="widget-wrap recent-posts">
-    <h3 class="widget-title">
-      <span>最新文章</span>
-    </h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <div class="recent-posts-thumbnail">
-              <a href="" style="background-image: url(https://i.loli.net/2021/04/13/vYrDwVnEMopIc4x.jpg);"></a>
-            </div>
-            <div class="recent-posts-header">
-              <h4 class="recent-posts-title">
-                <a href="">用 Vue3 的 Custom Renderer 制作扫雷游戏</a>
-              </h4>
-              <time class="dt-published" datetime="2021-04-11T21:42:17.000Z" itemprop="datePublished">2021年4月12日</time>
-            </div>
-          </li>
-        
-          <li>
-            <div class="recent-posts-thumbnail">
-              <a href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" style="background-image: url(https://i.loli.net/2021/04/13/9sYLwh2tMWUqNjP.jpg);"></a>
-            </div>
-            <div class="recent-posts-header">
-              <h4 class="recent-posts-title">
-                <a href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/">p5.js 实现《黑客帝国》代码瀑布</a>
-              </h4>
-              <time class="dt-published" datetime="2021-04-09T13:33:22.000Z" itemprop="datePublished">2021年4月9日</time>
-            </div>
-          </li>
-        
-          <li>
-            <div class="recent-posts-thumbnail">
-              <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" style="background-image: url(https://i.loli.net/2021/04/13/PlyU1ohrMeD5EOZ.jpg);"></a>
-            </div>
-            <div class="recent-posts-header">
-              <h4 class="recent-posts-title">
-                <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/">无需 NTAG 215 卡模拟 Amiibo</a>
-              </h4>
-              <time class="dt-published" datetime="2021-04-04T11:09:33.000Z" itemprop="datePublished">2021年4月4日</time>
-            </div>
-          </li>
-        
-          <li>
-            <div class="recent-posts-thumbnail">
-              <a href="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" style="background-image: url(https://i.loli.net/2021/04/13/OciJCAlbt2vpKgG.jpg);"></a>
-            </div>
-            <div class="recent-posts-header">
-              <h4 class="recent-posts-title">
-                <a href="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">使用 Hexo 在 Github 上搭建博客</a>
-              </h4>
-              <time class="dt-published" datetime="2021-04-03T13:15:48.000Z" itemprop="datePublished">2021年4月3日</time>
-            </div>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+  <section class="widget">
+    <header>
+      <title>最新文章</title>
+    </header>
+    <main>
+      
+        <article class="article-schema" itemid="" itemscope itemtype="https://schema.org/BlogPosting">
+          <figure class="article-thumbnail">
+            <a href="">
+              <img src="https://i.loli.net/2021/04/13/vYrDwVnEMopIc4x.jpg" alt="thumbnail" itemprop="thumbnail" />
+            </a>
+          </figure>
+          <header class="article-header">
+            <a class="article-title" href="">
+              <title itemprop="headline">用 Vue3 的 Custom Renderer 制作扫雷游戏</title>
+            </a>
+            <time class="article-time" itemprop="datePublished" datetime="2021-04-11T21:42:17.000Z">2021年4月12日</time>
+          </header>
+        </article>
+      
+        <article class="article-schema" itemid="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/" itemscope itemtype="https://schema.org/BlogPosting">
+          <figure class="article-thumbnail">
+            <a href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/">
+              <img src="https://i.loli.net/2021/04/13/9sYLwh2tMWUqNjP.jpg" alt="thumbnail" itemprop="thumbnail" />
+            </a>
+          </figure>
+          <header class="article-header">
+            <a class="article-title" href="../../09/%E5%88%A9%E7%94%A8p5js%E5%88%B6%E4%BD%9C%E9%BB%91%E5%AE%A2%E5%B8%9D%E5%9B%BD%E4%BB%A3%E7%A0%81%E7%80%91%E5%B8%83/">
+              <title itemprop="headline">p5.js 实现《黑客帝国》代码瀑布</title>
+            </a>
+            <time class="article-time" itemprop="datePublished" datetime="2021-04-09T13:33:22.000Z">2021年4月9日</time>
+          </header>
+        </article>
+      
+        <article class="article-schema" itemid="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/" itemscope itemtype="https://schema.org/BlogPosting">
+          <figure class="article-thumbnail">
+            <a href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/">
+              <img src="https://i.loli.net/2021/04/13/PlyU1ohrMeD5EOZ.jpg" alt="thumbnail" itemprop="thumbnail" />
+            </a>
+          </figure>
+          <header class="article-header">
+            <a class="article-title" href="../../04/%E6%A8%A1%E6%8B%9Famiibo%EF%BC%8C%E6%97%A0%E9%9C%80ntag215%E5%8D%A1/">
+              <title itemprop="headline">无需 NTAG 215 卡模拟 Amiibo</title>
+            </a>
+            <time class="article-time" itemprop="datePublished" datetime="2021-04-04T11:09:33.000Z">2021年4月4日</time>
+          </header>
+        </article>
+      
+        <article class="article-schema" itemid="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" itemscope itemtype="https://schema.org/BlogPosting">
+          <figure class="article-thumbnail">
+            <a href="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+              <img src="https://i.loli.net/2021/04/13/OciJCAlbt2vpKgG.jpg" alt="thumbnail" itemprop="thumbnail" />
+            </a>
+          </figure>
+          <header class="article-header">
+            <a class="article-title" href="../../03/%E4%BD%BF%E7%94%A8hexo%E5%9C%A8github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+              <title itemprop="headline">使用 Hexo 在 Github 上搭建博客</title>
+            </a>
+            <time class="article-time" itemprop="datePublished" datetime="2021-04-03T13:15:48.000Z">2021年4月3日</time>
+          </header>
+        </article>
+      
+    </main>
+  </section>
 
   
 </aside>
-        </div>
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
+  </section>
+  <div class="clear"></div>
+  <footer id="footer">
+  <div class="inner">
     
-      <div id="footer-socials" class="inner">
+      <div id="footer-socials">
         <ul>
           
             <li>
@@ -353,23 +290,24 @@ npm run dev</code></pre>
         </ul>
       </div>
     
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 戴威
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    <div id="copyright">
+      <span>
+        
+        &copy; 2021 戴威
+        Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      </span>
     </div>
   </div>
 </footer>
 
-    </div>
-    <nav id="mobile-nav">
+  <nav id="mobile-nav">
   
     <a href="../../../../index.html" class="mobile-nav-link">首页</a>
   
     <a href="../../../../archives" class="mobile-nav-link">归档</a>
   
 </nav>
-    
+  
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
@@ -382,6 +320,5 @@ npm run dev</code></pre>
 
 
 
-  </div>
 </body>
 </html>
